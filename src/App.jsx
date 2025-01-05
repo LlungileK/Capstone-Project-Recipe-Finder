@@ -4,6 +4,7 @@ import RecipePage from './pages/RecipePage';
 import FavoritesPage from './pages/FavoritesPage';
 import NavBar from './components/NavBar';
 import WelcomePage from './pages/WelcomePage';
+import SearchBar from './components/SearchBar';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
+        <Route path="/" element={<SearchBar />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/recipe/:id" element={<RecipePage />} />
         <Route path="/favorites" element={<FavoritesPage />} />

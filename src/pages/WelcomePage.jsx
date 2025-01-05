@@ -1,14 +1,23 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import RoundedImage from '../components/RoundedImage';
+import SearchBar from '../components/SearchBar';
 
 const WelcomePage = () => {
+  const [query, setQuery] = useState('');
+
   const sampleImages = [
-    'https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg', // Example meal image
-    'https://www.themealdb.com/images/media/meals/1529444830.jpg',
-    'https://www.themealdb.com/images/media/meals/1548772327.jpg',
-    'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    'https://www.themealdb.com/images/media/meals/1550441882.jpg',
+    { id: 1, name: 'Beef Stroganoff', url: 'https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg' },
+    { id: 2, name: 'Spaghetti Carbonara', url: 'https://www.themealdb.com/images/media/meals/1529444830.jpg' },
+    { id: 3, name: 'Chicken Parmesan', url: 'https://www.themealdb.com/images/media/meals/1548772327.jpg' },
+    { id: 4, name: 'Tacos', url: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg' },
+    { id: 5, name: 'Sushi', url: 'https://www.themealdb.com/images/media/meals/1550441882.jpg' },
   ];
+
+  // Filter images based on search query
+  const filteredImages = sampleImages.filter((image) =>
+    image.name.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
     <div className="p-4">
@@ -17,22 +26,27 @@ const WelcomePage = () => {
         Discover delicious recipes from around the world. Search, explore, and save your favorites!
       </p>
 
+      {/* SearchBar */}
+      <SearchBar setQuery={setQuery} />
+
+      {/* Display Filtered Images */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
-        {sampleImages.map((image, index) => (
+        {filteredImages.map((image) => (
           <div
-            key={index}
+            key={image.id}
             className="overflow-hidden rounded-lg shadow-lg hover:scale-105 transform transition duration-300"
           >
-            <RoundedImage 
-              key={index}
-              src={image}
-              alt={`Meal ${index + 1}`}
+            <RoundedImage
+              src={image.url}
+              alt={image.name}
               className="w-full h-full object-cover rounded-lg"
             />
+            <p className="text-center font-medium mt-2">{image.name}</p>
           </div>
         ))}
       </div>
 
+      {/* Button to Explore Recipes */}
       <div className="mt-8 text-center">
         <Link
           to="/home"

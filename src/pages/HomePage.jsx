@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchRecipes } from '../api';
 import SearchBar from '../components/SearchBar';
 import RecipeCard from '../components/RecipeCard';
+import WelcomePage from './WelcomePage';
 
 function HomePage() {
   const [recipes, setRecipes] = useState([]); // List of recipes
